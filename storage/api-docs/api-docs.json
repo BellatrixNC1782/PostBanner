@@ -1,0 +1,910 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "BannerApp",
+        "description": "API documentation for BannerApp",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/PostBanner/v1",
+            "description": "V1 API"
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "login",
+                "description": "Login",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "is_social",
+                                    "login_with",
+                                    "social_id",
+                                    "device_token",
+                                    "device_type",
+                                    "uu_id"
+                                ],
+                                "properties": {
+                                    "social_id": {
+                                        "type": "string",
+                                        "example": "google_id/apple_id"
+                                    },
+                                    "login_with": {
+                                        "type": "string",
+                                        "example": "Email/Google/Apple"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "cavin@mailinator.com"
+                                    },
+                                    "device_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123"
+                                    },
+                                    "device_type": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Android"
+                                    },
+                                    "device_model": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Samsung SM-M146B - 13"
+                                    },
+                                    "device_os": {
+                                        "type": "integer",
+                                        "example": "os"
+                                    },
+                                    "app_version": {
+                                        "type": "integer",
+                                        "example": "version"
+                                    },
+                                    "api_version": {
+                                        "type": "integer",
+                                        "example": "api version"
+                                    },
+                                    "uu_id": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123"
+                                    },
+                                    "apple_auth_code": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123avcaca123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout/{uu_id}": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "logout",
+                "description": "logout",
+                "operationId": "logout",
+                "parameters": [
+                    {
+                        "name": "uu_id",
+                        "in": "path",
+                        "description": "uu_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/adddevicetoken": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "add device token",
+                "description": "",
+                "operationId": "adddevicetoken",
+                "requestBody": {
+                    "description": "Pass user details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "uu_id": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123"
+                                    },
+                                    "device_type": {
+                                        "type": "string",
+                                        "example": "Android"
+                                    },
+                                    "device_token": {
+                                        "type": "string",
+                                        "example": "token123"
+                                    },
+                                    "device_model": {
+                                        "type": "string",
+                                        "example": "SAMSUNG F12"
+                                    },
+                                    "device_name": {
+                                        "type": "string",
+                                        "example": "name"
+                                    },
+                                    "device_os": {
+                                        "type": "integer",
+                                        "example": "os"
+                                    },
+                                    "app_version": {
+                                        "type": "integer",
+                                        "example": "version"
+                                    },
+                                    "api_version": {
+                                        "type": "integer",
+                                        "example": "api version"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Device token added successfully!"
+                    },
+                    "401": {
+                        "description": "Something went wrong, Please try again."
+                    }
+                }
+            }
+        },
+        "/verifyotp": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "verify OTP",
+                "description": "verify OTP",
+                "operationId": "verifyotp",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email_otp_number",
+                                    "email",
+                                    "mobile"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "emailId",
+                                        "example": "stiv@mailinator.com"
+                                    },
+                                    "is_social": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "otp_number": {
+                                        "type": "integer",
+                                        "example": "5648"
+                                    },
+                                    "device_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123"
+                                    },
+                                    "device_type": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Android"
+                                    },
+                                    "device_model": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Samsung SM-M146B - 13"
+                                    },
+                                    "device_os": {
+                                        "type": "integer",
+                                        "example": "os"
+                                    },
+                                    "app_version": {
+                                        "type": "integer",
+                                        "example": "version"
+                                    },
+                                    "api_version": {
+                                        "type": "integer",
+                                        "example": "api version"
+                                    },
+                                    "uu_id": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/resendotp": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "resendotp",
+                "description": "resendotp",
+                "operationId": "resendotp",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "source": {
+                                        "type": "string",
+                                        "format": "email/forgot_email/new_mobile",
+                                        "example": "email/forgot_email/new_email"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "emailId",
+                                        "example": "stiv@mailinator.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/userdetails": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Sign in",
+                "description": "get logged user details",
+                "operationId": "userdetails",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "Something went wrong, Please try again."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/updateprofile": {
+            "post": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "update profile",
+                "description": "update profile",
+                "operationId": "updateprofile",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "image"
+                                ],
+                                "properties": {
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "test.png"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/getconfig/{config_key}/{device_type}": {
+            "get": {
+                "tags": [
+                    "Config"
+                ],
+                "summary": "Get config",
+                "description": "Get config",
+                "operationId": "getconfig",
+                "parameters": [
+                    {
+                        "name": "config_key",
+                        "in": "path",
+                        "description": "config_key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "device_type",
+                        "in": "path",
+                        "description": "device_type (android/ios/general)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/getappversion": {
+            "post": {
+                "tags": [
+                    "Config"
+                ],
+                "summary": "get app version",
+                "description": "",
+                "operationId": "getappversion",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "platform"
+                                ],
+                                "properties": {
+                                    "platform": {
+                                        "type": "string",
+                                        "example": "android/ios"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "Something went wrong, Please try again."
+                    }
+                }
+            }
+        },
+        "/notificationonoff": {
+            "put": {
+                "tags": [
+                    "Setting"
+                ],
+                "summary": "notification on off",
+                "description": "notification on off",
+                "operationId": "notificationonoff",
+                "requestBody": {
+                    "description": "pass push_notify or text_notify",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "push_notify"
+                                ],
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "push_notify"
+                                    },
+                                    "is_notify": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Notification updated Successfully."
+                    },
+                    "401": {
+                        "description": "User ID is invalid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/deleteuser": {
+            "delete": {
+                "tags": [
+                    "Setting"
+                ],
+                "summary": "delete user",
+                "description": "delete user",
+                "operationId": "deleteuser",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "Something went wrong, Please try again."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/notificationlist": {
+            "post": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "notification list",
+                "description": "show notification list of logged in user",
+                "operationId": "notificationlist",
+                "requestBody": {
+                    "description": "Pass offset and limit",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "offset",
+                                    "limit"
+                                ],
+                                "properties": {
+                                    "offset": {
+                                        "type": "number",
+                                        "format": "0",
+                                        "example": "0"
+                                    },
+                                    "limit": {
+                                        "type": "number",
+                                        "format": "1",
+                                        "example": "10"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "No Notification to show.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid setting details."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/unreadcount": {
+            "get": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "get unread count",
+                "description": "",
+                "operationId": "unreadcount",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "Something went wrong, Please try again."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/addupdatebusinessprofile": {
+            "post": {
+                "tags": [
+                    "Business Profile"
+                ],
+                "summary": "add update business profile",
+                "description": "add update business profile",
+                "operationId": "addupdatebusinessprofile",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "business_profile_id": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "business_name": {
+                                        "type": "string",
+                                        "example": "cavin"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "cavin@mailinator.com"
+                                    },
+                                    "mobile": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1234567890"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "test.png"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/getbusinessdetail": {
+            "get": {
+                "tags": [
+                    "Business Profile"
+                ],
+                "summary": "get business detail",
+                "description": "get business detail",
+                "operationId": "getbusinessdetail",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "Something went wrong, Please try again."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/deletebusinessdetail": {
+            "delete": {
+                "tags": [
+                    "Business Profile"
+                ],
+                "summary": "delete business detail",
+                "description": "delete business detail",
+                "operationId": "deletebusinessdetail",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "Something went wrong, Please try again."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/getposterlist": {
+            "post": {
+                "tags": [
+                    "Poster"
+                ],
+                "summary": "get poster list",
+                "description": "get poster list",
+                "operationId": "getposterlist",
+                "requestBody": {
+                    "description": "Pass offset and limit",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "offset",
+                                    "limit"
+                                ],
+                                "properties": {
+                                    "offset": {
+                                        "type": "number",
+                                        "format": "0",
+                                        "example": "0"
+                                    },
+                                    "limit": {
+                                        "type": "number",
+                                        "format": "1",
+                                        "example": "10"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "No Notification to show.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid setting details."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearer": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Profile",
+            "description": "Profile"
+        },
+        {
+            "name": "Config",
+            "description": "Config"
+        },
+        {
+            "name": "Setting",
+            "description": "Setting"
+        },
+        {
+            "name": "Notification",
+            "description": "Notification"
+        },
+        {
+            "name": "Business Profile",
+            "description": "Business Profile"
+        },
+        {
+            "name": "Poster",
+            "description": "Poster"
+        }
+    ]
+}
