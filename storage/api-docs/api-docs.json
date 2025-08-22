@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "BannerApp",
+        "title": "PostBanner",
         "description": "API documentation for BannerApp",
         "version": "1.0.0"
     },
@@ -859,6 +859,125 @@
                     }
                 }
             }
+        },
+        "/addupdatesavedposter": {
+            "post": {
+                "tags": [
+                    "Saved Poster"
+                ],
+                "summary": "add update saved poster",
+                "description": "add update saved poster",
+                "operationId": "addupdatesavedposter",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "saved_poster_id": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "img.png"
+                                    },
+                                    "poster_json": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "test json"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/getsavedposterlist": {
+            "get": {
+                "tags": [
+                    "Saved Poster"
+                ],
+                "summary": "get saved poster list",
+                "description": "get saved poster list",
+                "operationId": "getsavedposterlist",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "Something went wrong, Please try again."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/deletesavedposter/{saved_poster_id}": {
+            "delete": {
+                "tags": [
+                    "Saved Poster"
+                ],
+                "summary": "delete saved poster",
+                "description": "delete saved poster",
+                "operationId": "deletesavedposter",
+                "parameters": [
+                    {
+                        "name": "saved_poster_id",
+                        "in": "path",
+                        "description": "saved_poster_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "401": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -900,6 +1019,10 @@
         {
             "name": "Poster",
             "description": "Poster"
+        },
+        {
+            "name": "Saved Poster",
+            "description": "Saved Poster"
         }
     ]
 }

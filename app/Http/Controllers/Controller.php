@@ -475,6 +475,82 @@ use OpenApi\Annotations as OA;
  *          ),
  *      )
  * )
+ * 
+ * @OA\PathItem(
+ *     path="/addupdatesavedposter",
+ *     @OA\Post(
+ *         summary="add update saved poster",
+ *         description="add update saved poster",
+ *         operationId="addupdatesavedposter",
+ *         tags={"Saved Poster"},
+ *         @OA\RequestBody(
+ *             required=true,
+ *             description="Pass user credentials",
+ *             @OA\JsonContent(
+ *                  required={"email"},
+ *                  @OA\Property(property="saved_poster_id", type="integer", example=5),
+ *                  @OA\Property(property="image", type="string", example="img.png"),
+ *                  @OA\Property(property="poster_json", type="string", format="string", example="test json"),
+ *             )
+ *         ),
+ *         @OA\Response(
+ *             response=422,
+ *             description="Wrong credentials response",
+ *             @OA\JsonContent(
+ *                 @OA\Property(property="message", type="string", example="Sorry, wrong email address. Please try again")
+ *             )
+ *         ),
+ *         security={ {"bearer": {}} }
+ *     )
+ * )
+ * 
+ * 
+ * @OA\PathItem(
+ *     path="/getsavedposterlist",
+ *     @OA\Get(
+ *         summary="get saved poster list",
+ *         description="get saved poster list",
+ *         operationId="getsavedposterlist",
+ *         tags={"Saved Poster"},
+ *         @OA\Response(
+ *              response=200,
+ *              description="success"
+ *               ),
+ *           @OA\Response(
+ *              response=401,
+ *              description="Something went wrong, Please try again."
+ *               ),
+ *           security={ {"bearer": {}} }
+ *     )
+ * )
+ * 
+ * @OA\PathItem(
+ *      path="/deletesavedposter/{saved_poster_id}",
+ *      @OA\Delete(
+ *      summary="delete saved poster",
+ *      description="delete saved poster",
+ *      operationId="deletesavedposter",
+ *      tags={"Saved Poster"},
+ *      @OA\Parameter(
+ *          name="saved_poster_id",
+ *          description="saved_poster_id",
+ *          required=true,
+ *          in="path",
+ *          @OA\Schema(
+ *              type="string"
+ *          )
+ *      ),
+ *      @OA\Response(
+ *         response=200,
+ *         description=""
+ *          ),
+ *      @OA\Response(
+ *         response=401,
+ *         description=""
+ *          ),
+ *      security={ {"bearer": {}} }
+ *    )
+ * )
  */
 class Controller extends BaseController {
 
