@@ -34,6 +34,9 @@ Route::post('getappversion', 'v1\AppVersionController@getAppVersion');
 Route::Get('getcategorylist', 'v1\ConfigController@getCategoryList');
 
 Route::post('adddevicetoken', 'v1\LoginController@addDeviceToken');
+    
+//Get Poster
+Route::post('getposterlist', 'v1\PosterController@getPosterList');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     
@@ -58,7 +61,4 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('addupdatebusinessprofile', 'v1\BusinessProfileController@addUpdateBusinessProfile');
     Route::get('getbusinessdetail', 'v1\BusinessProfileController@getBusinessDetail');    
     Route::delete('deletebusinessdetail', 'v1\BusinessProfileController@deleteBusinessDetail');
-    
-    //Get Poster
-    Route::post('getposterlist', 'v1\PosterController@getPosterList');
 });

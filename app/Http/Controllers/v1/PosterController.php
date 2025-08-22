@@ -30,8 +30,6 @@ class PosterController extends Controller {
     /*******************   START : Business details    ********************/
     public function getPosterList() {
         try {
-            $userId = Auth::User()->id;
-
             $poster = Poster::where('status', 'active');
             
             $total_poster = $poster->count();

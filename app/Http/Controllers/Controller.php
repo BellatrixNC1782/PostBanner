@@ -10,7 +10,7 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Info(
- *     title="BannerApp",
+ *     title="PostBanner",
  *     version="1.0.0",
  *     description="API documentation for BannerApp"
  * )
@@ -473,7 +473,6 @@ use OpenApi\Annotations as OA;
  *            @OA\Property(property="message", type="string", example="Invalid setting details.")
  *             )
  *          ),
- *      security={ {"bearer": {}} },
  *      )
  * )
  */
