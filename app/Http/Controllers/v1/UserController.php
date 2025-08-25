@@ -38,6 +38,9 @@ class UserController extends Controller {
 
             $this->data['image'] = !empty($save_user_detail->image) ? asset('public/uploads/user_profile/' . $save_user_detail->image) : "";
             $this->data['email'] = $save_user_detail->email;
+            
+            $this->data['email_verify'] = $save_user_detail->email_verify == 'Yes' ? 1 : 0;
+            $this->data['push_notify'] = $save_user_detail->push_notify == 'Yes' ? 1 : 0;
 
             //Social user check
             $this->data['is_social_user'] = false;
