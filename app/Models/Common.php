@@ -88,13 +88,17 @@ class Common extends Model
     // upload image
     public static function uploadSingleImage($image, $path, $data = array())
     {
-        $name = time() . '.' . $image->getClientOriginalExtension();
-        $destinationPath = public_path('/uploads/' . $path);
-        if ($image->move($destinationPath, $name))
-        {
-            return $name;
+        try {
+            $name = uniqid() . "_" . time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/' . $path);
+            if ($image->move($destinationPath, $name)) {
+                return array('status' => 1, 'message' => 'success', 'data' => $name);
+            } else {
+                return array('status' => 0);                
+            }
+        } catch (\Exception $e) {
+            return array('status' => 0, 'message' => $e->getMessage());
         }
-        return false;
     }
 
     public static function getEmailTemplate($alias,$arrayreplace=array(),$arrayreplacedata=array())
