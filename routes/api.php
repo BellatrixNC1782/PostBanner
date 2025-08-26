@@ -59,8 +59,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     
     //Business Profile
     Route::post('addupdatebusinessprofile', 'v1\BusinessProfileController@addUpdateBusinessProfile');
-    Route::get('getbusinessdetail', 'v1\BusinessProfileController@getBusinessDetail');    
-    Route::delete('deletebusinessdetail', 'v1\BusinessProfileController@deleteBusinessDetail');
+    Route::post('getbusinesslist', 'v1\BusinessProfileController@getBusinessList');    
+    Route::get('getbusinessdetail/{saved_poster_id}', 'v1\BusinessProfileController@getBusinessDetail');    
+    Route::delete('deletebusinessdetail/{saved_poster_id}', 'v1\BusinessProfileController@deleteBusinessDetail');
     
     //Saved Poster
     Route::post('addupdatesavedposter', 'v1\SavedPosterController@addUpdateSavedPoster');

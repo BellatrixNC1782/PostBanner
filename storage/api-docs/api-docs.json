@@ -709,9 +709,17 @@
                                         "type": "integer",
                                         "example": 5
                                     },
-                                    "business_name": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "business/personal"
+                                    },
+                                    "user_name": {
                                         "type": "string",
                                         "example": "cavin"
+                                    },
+                                    "business_name": {
+                                        "type": "string",
+                                        "example": "test business"
                                     },
                                     "email": {
                                         "type": "string",
@@ -759,7 +767,67 @@
                 ]
             }
         },
-        "/getbusinessdetail": {
+        "/getbusinesslist": {
+            "post": {
+                "tags": [
+                    "Business Profile"
+                ],
+                "summary": "get business list",
+                "description": "get business list",
+                "operationId": "getbusinesslist",
+                "requestBody": {
+                    "description": "Pass offset and limit",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "offset",
+                                    "limit"
+                                ],
+                                "properties": {
+                                    "offset": {
+                                        "type": "number",
+                                        "format": "0",
+                                        "example": "0"
+                                    },
+                                    "limit": {
+                                        "type": "number",
+                                        "format": "1",
+                                        "example": "10"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "No Notification to show.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid setting details."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/getbusinessdetail/{business_profile_id}": {
             "get": {
                 "tags": [
                     "Business Profile"
@@ -767,6 +835,17 @@
                 "summary": "get business detail",
                 "description": "get business detail",
                 "operationId": "getbusinessdetail",
+                "parameters": [
+                    {
+                        "name": "business_profile_id",
+                        "in": "path",
+                        "description": "business_profile_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "success"
@@ -782,7 +861,7 @@
                 ]
             }
         },
-        "/deletebusinessdetail": {
+        "/deletebusinessdetail/{business_profile_id}": {
             "delete": {
                 "tags": [
                     "Business Profile"
@@ -790,12 +869,23 @@
                 "summary": "delete business detail",
                 "description": "delete business detail",
                 "operationId": "deletebusinessdetail",
+                "parameters": [
+                    {
+                        "name": "business_profile_id",
+                        "in": "path",
+                        "description": "business_profile_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "success"
+                        "description": ""
                     },
                     "401": {
-                        "description": "Something went wrong, Please try again."
+                        "description": ""
                     }
                 },
                 "security": [

@@ -394,7 +394,9 @@ use OpenApi\Annotations as OA;
  *             @OA\JsonContent(
  *                  required={"email"},
  *                  @OA\Property(property="business_profile_id", type="integer", example=5),
- *                  @OA\Property(property="business_name", type="string", example="cavin"),
+ *                  @OA\Property(property="type", type="string", example="business/personal"),
+ *                  @OA\Property(property="user_name", type="string", example="cavin"),
+ *                  @OA\Property(property="business_name", type="string", example="test business"),
  *                  @OA\Property(property="email", type="string", format="email", example="cavin@mailinator.com"),
  *                  @OA\Property(property="mobile", type="string", format="string", example="1234567890"),
  *                  @OA\Property(property="image", type="string", format="string", example="test.png"),
@@ -411,43 +413,87 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  * 
+ * @OA\PathItem(
+ *      path="/getbusinesslist",
+ *      @OA\Post(
+ *      summary="get business list",
+ *      description="get business list",
+ *      operationId="getbusinesslist",
+ *      tags={"Business Profile"},
+ *      @OA\RequestBody(
+ *         required=true,
+ *         description="Pass offset and limit",
+ *         @OA\JsonContent(
+ *            required={"offset","limit"},
+ *            @OA\Property(property="offset", type="number", format="0", example="0"),
+ *            @OA\Property(property="limit", type="number", format="1", example="10"),
+ *         ),
+ *      ),
+ *      @OA\Response(
+ *         response=401,
+ *         description="No Notification to show.",
+ *         @OA\JsonContent(
+ *            @OA\Property(property="message", type="string", example="Invalid setting details.")
+ *             )
+ *          ),
+ *         security={ {"bearer": {}} }
+ *      )
+ * )
  * 
  * @OA\PathItem(
- *     path="/getbusinessdetail",
+ *     path="/getbusinessdetail/{business_profile_id}",
  *     @OA\Get(
  *         summary="get business detail",
  *         description="get business detail",
  *         operationId="getbusinessdetail",
  *         tags={"Business Profile"},
+ *         @OA\Parameter(
+ *             name="business_profile_id",
+ *             description="business_profile_id",
+ *             required=true,
+ *             in="path",
+ *             @OA\Schema(
+ *                 type="string"
+ *             )
+ *         ),
  *         @OA\Response(
  *              response=200,
  *              description="success"
- *               ),
- *           @OA\Response(
- *              response=401,
- *              description="Something went wrong, Please try again."
- *               ),
- *           security={ {"bearer": {}} }
+ *         ),
+ *         @OA\Response(
+ *            response=401,
+ *            description="Something went wrong, Please try again."
+ *             ),
+ *         security={ {"bearer": {}} }
  *     )
  * )
  * 
  * @OA\PathItem(
- *      path="/deletebusinessdetail",
+ *      path="/deletebusinessdetail/{business_profile_id}",
  *      @OA\Delete(
  *      summary="delete business detail",
  *      description="delete business detail",
  *      operationId="deletebusinessdetail",
  *      tags={"Business Profile"},
- *       @OA\Response(
- *           response=200,
- *              description="success"
- *               ),
- *           @OA\Response(
- *              response=401,
- *              description="Something went wrong, Please try again."
- *               ),
- *           security={ {"bearer": {}} }
- *      )
+ *      @OA\Parameter(
+ *          name="business_profile_id",
+ *          description="business_profile_id",
+ *          required=true,
+ *          in="path",
+ *          @OA\Schema(
+ *              type="string"
+ *          )
+ *      ),
+ *      @OA\Response(
+ *         response=200,
+ *         description=""
+ *          ),
+ *      @OA\Response(
+ *         response=401,
+ *         description=""
+ *          ),
+ *      security={ {"bearer": {}} }
+ *    )
  * )
  * 
  * @OA\PathItem(
