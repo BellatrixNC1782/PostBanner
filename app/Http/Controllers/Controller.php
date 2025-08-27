@@ -535,6 +535,7 @@ use OpenApi\Annotations as OA;
  *             @OA\JsonContent(
  *                  required={"email"},
  *                  @OA\Property(property="saved_poster_id", type="integer", example=5),
+ *                  @OA\Property(property="business_id", type="integer", example=8),
  *                  @OA\Property(property="image", type="string", example="img.png"),
  *                  @OA\Property(property="poster_json", type="string", format="string", example="test json"),
  *             )
@@ -553,21 +554,29 @@ use OpenApi\Annotations as OA;
  * 
  * @OA\PathItem(
  *     path="/getsavedposterlist",
- *     @OA\Get(
+ *     @OA\Post(
  *         summary="get saved poster list",
  *         description="get saved poster list",
  *         operationId="getsavedposterlist",
  *         tags={"Saved Poster"},
+ *         @OA\RequestBody(
+ *            required=true,
+ *            description="Pass offset and limit",
+ *            @OA\JsonContent(
+ *               required={"offset","limit"},
+ *               @OA\Property(property="offset", type="number", format="0", example="0"),
+ *               @OA\Property(property="limit", type="number", format="1", example="10"),
+ *            ),
+ *         ),
  *         @OA\Response(
- *              response=200,
- *              description="success"
- *               ),
- *           @OA\Response(
- *              response=401,
- *              description="Something went wrong, Please try again."
- *               ),
- *           security={ {"bearer": {}} }
- *     )
+ *            response=401,
+ *            description="No Notification to show.",
+ *            @OA\JsonContent(
+ *               @OA\Property(property="message", type="string", example="Invalid setting details.")
+ *                )
+ *             ),
+ *             security={ {"bearer": {}} }
+ *         )
  * )
  * 
  * @OA\PathItem(

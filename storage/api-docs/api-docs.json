@@ -972,6 +972,10 @@
                                         "type": "integer",
                                         "example": 5
                                     },
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 8
+                                    },
                                     "image": {
                                         "type": "string",
                                         "example": "img.png"
@@ -1013,19 +1017,56 @@
             }
         },
         "/getsavedposterlist": {
-            "get": {
+            "post": {
                 "tags": [
                     "Saved Poster"
                 ],
                 "summary": "get saved poster list",
                 "description": "get saved poster list",
                 "operationId": "getsavedposterlist",
+                "requestBody": {
+                    "description": "Pass offset and limit",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "offset",
+                                    "limit"
+                                ],
+                                "properties": {
+                                    "offset": {
+                                        "type": "number",
+                                        "format": "0",
+                                        "example": "0"
+                                    },
+                                    "limit": {
+                                        "type": "number",
+                                        "format": "1",
+                                        "example": "10"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
-                    "200": {
-                        "description": "success"
-                    },
                     "401": {
-                        "description": "Something went wrong, Please try again."
+                        "description": "No Notification to show.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid setting details."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [

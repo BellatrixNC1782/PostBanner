@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Common;
 use App\Models\SavedPoster;
+use App\Models\BusinessProfile;
 use Auth;
 use DB;
 use Hash;
@@ -57,6 +58,14 @@ class SavedPosterController extends Controller {
             $save_saved_poster = new SavedPoster();
         }
         $save_saved_poster->user_id = $user_id;
+        
+        if(isset($request->business_id) || $request->business_id != '') {
+            $save_saved_poster->business_id = $request->business_id;
+            $business_detail_check = BusinessProfile::where('id', $request->business_id)->where('user_id', $user_id)->first();
+            if(empty($business_detail_check)) {
+                return response()->json(['message' => 'Business detail not found'], $this->failStatus);
+            }            
+        }
         $save_saved_poster->poster_json = $request->poster_json;
         
         if ($request->hasFile('image')) {
@@ -86,11 +95,15 @@ class SavedPosterController extends Controller {
         try {
             $userId = Auth::User()->id;
 
-            $saved_poster = SavedPoster::where('user_id', $userId)->get();
+            $saved_poster = SavedPoster::select('saved_posters.*', 'business_details.type', 'business_details.user_name', 'business_details.business_name', 
+                    'business_details.email', 'business_details.mobile', 'business_details.image as business_image')
+                    ->leftjoin('business_details', 'business_details.id', 'saved_posters.business_id')
+                    ->where('saved_posters.user_id', $userId)->get();
 
             if(!$saved_poster->isEmpty()) {
                 foreach($saved_poster as $key => $val) {
-                    $val['image'] = !empty($val->image) ? asset('public/uploads/saved_poster/' . $val->image) : "";                    
+                    $val['image'] = !empty($val->image) ? asset('public/uploads/saved_poster/' . $val->image) : "";
+                    $val['business_image'] = !empty($val->business_image) ? asset('public/uploads/user_profile/' . $val->business_image) : "";
                 }
             }
 

@@ -65,6 +65,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     
     //Saved Poster
     Route::post('addupdatesavedposter', 'v1\SavedPosterController@addUpdateSavedPoster');
-    Route::get('getsavedposterlist', 'v1\SavedPosterController@getSavedPosterlist');
+    Route::post('getsavedposterlist', 'v1\SavedPosterController@getSavedPosterlist');
     Route::delete('deletesavedposter/{saved_poster_id}', 'v1\SavedPosterController@deleteSavedPoster');
 });
