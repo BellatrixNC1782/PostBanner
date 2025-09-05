@@ -91,7 +91,7 @@ class SavedPosterController extends Controller {
     /********************   END : Add/Update Saved Poster    *********************/
             
     /*******************   START : Saved Poster List    ********************/
-    public function getSavedPosterlist() {
+    public function getSavedPosterlist(Request $request) {
         try {
             $userId = Auth::User()->id;
 
