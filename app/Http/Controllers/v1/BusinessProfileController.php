@@ -114,7 +114,7 @@ class BusinessProfileController extends Controller {
     /********************   END : Add/Update Business Profile    *********************/
             
     /*******************   START : Business list    ********************/
-    public function getBusinessList() {
+    public function getBusinessList(Request $request) {
         try {
             $userId = Auth::User()->id;
 
