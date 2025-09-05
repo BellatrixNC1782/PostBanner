@@ -98,7 +98,7 @@ class SavedPosterController extends Controller {
             $saved_poster = SavedPoster::select('saved_posters.*', 'business_details.type', 'business_details.user_name', 'business_details.business_name', 
                     'business_details.email', 'business_details.mobile', 'business_details.image as business_image')
                     ->leftjoin('business_details', 'business_details.id', 'saved_posters.business_id')
-                    ->where('saved_posters.user_id', $userId)
+                    ->where('saved_posters.user_id', $userId);
             
             $total_poster = $saved_poster->count();
             if (isset($request->offset) && isset($request->limit)) {
