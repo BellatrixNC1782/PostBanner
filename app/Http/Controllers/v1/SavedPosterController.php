@@ -98,7 +98,14 @@ class SavedPosterController extends Controller {
             $saved_poster = SavedPoster::select('saved_posters.*', 'business_details.type', 'business_details.user_name', 'business_details.business_name', 
                     'business_details.email', 'business_details.mobile', 'business_details.image as business_image')
                     ->leftjoin('business_details', 'business_details.id', 'saved_posters.business_id')
-                    ->where('saved_posters.user_id', $userId)->get();
+                    ->where('saved_posters.user_id', $userId)
+            
+            $total_poster = $saved_poster->count();
+            if (isset($request->offset) && isset($request->limit)) {
+                $saved_poster = $saved_poster->skip($request->offset)->take($request->limit)->get();
+            } else {
+                $saved_poster = $saved_poster->get();
+            }
 
             if(!$saved_poster->isEmpty()) {
                 foreach($saved_poster as $key => $val) {
@@ -107,7 +114,7 @@ class SavedPosterController extends Controller {
                 }
             }
 
-            return response()->json(['message' => 'Saved poster detail', 'total_poster' => count($saved_poster), 'data' => $saved_poster], $this->successStatus);
+            return response()->json(['message' => 'Saved poster detail', 'total_poster' => $total_poster, 'data' => $saved_poster], $this->successStatus);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], $this->failStatus);
         }
