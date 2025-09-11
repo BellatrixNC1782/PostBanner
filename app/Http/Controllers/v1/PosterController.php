@@ -29,7 +29,7 @@ class PosterController extends Controller {
     public $dataSaveMessage = 'Data saved successfully';
             
     /*******************   START : Poster List    ********************/
-    public function getPosterList() {
+    public function getPosterList(Request $request) {
         try {
             $poster = Poster::select('posters.*', 'categories.name')
                         ->join('categories', 'categories.id', 'posters.category_id')
