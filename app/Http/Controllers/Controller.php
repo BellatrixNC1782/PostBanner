@@ -510,7 +510,7 @@ use OpenApi\Annotations as OA;
  *            required={"offset","limit"},
  *            @OA\Property(property="offset", type="number", format="0", example="0"),
  *            @OA\Property(property="limit", type="number", format="1", example="10"),
- *            @OA\Property(property="search", type="string", format="string", example='test),
+ *            @OA\Property(property="search", type="string", format="string", example="test"),
  *            @OA\Property(property="category_id", type="number", format="1", example=5),
  *         ),
  *      ),
