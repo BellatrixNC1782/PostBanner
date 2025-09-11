@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Common;
 use App\Models\UserDeviceToken;
 use App\Models\Poster;
+use App\Models\Category;
 use Auth;
 use DB;
 use Hash;
@@ -27,11 +28,21 @@ class PosterController extends Controller {
     public $dataExistMessage = 'Data already exist';
     public $dataSaveMessage = 'Data saved successfully';
             
-    /*******************   START : Business details    ********************/
+    /*******************   START : Poster List    ********************/
     public function getPosterList() {
         try {
-            $poster = Poster::where('status', 'active');
+            $poster = Poster::select('posters.*', 'categories.name')
+                        ->join('categories', 'categories.id', 'posters.category_id')
+                        ->where('posters.status', 'active');
             
+            if(isset($request->category_id) || $request->category_id != '') {                
+                $poster = $poster->where('posters.category_id', $request->category_id);
+            }
+
+            if (!empty($request->search)) {
+                $poster->where('categories.name', 'LIKE', '%' . $request->search . '%');
+            }
+
             $total_poster = $poster->count();
             if (isset($request->offset) && isset($request->limit)) {
                 $poster = $poster->skip($request->offset)->take($request->limit)->get();
@@ -50,6 +61,25 @@ class PosterController extends Controller {
             return response()->json(['message' => $e->getMessage()], $this->failStatus);
         }
     }
-    /*******************   END : Business details    ********************/
+    /*******************   END : Poster List    ********************/
+            
+    /*******************   START : Category List    ********************/
+    public function getCategoryList() {
+        try {
+            $category = Category::where('status', 'active');
+            
+            $total_category = $category->count();
+            if (isset($request->offset) && isset($request->limit)) {
+                $category = $category->skip($request->offset)->take($request->limit)->get();
+            } else {
+                $category = $category->get();
+            }
+
+            return response()->json(['message' => 'Category List', 'total_category' => $total_category, 'data' => $category], $this->successStatus);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], $this->failStatus);
+        }
+    }
+    /*******************   END : Category List    ********************/
         
 }

@@ -267,22 +267,20 @@ class LoginController extends Controller {
     /********************   START : Add device token    *********************/
     public function addDeviceToken(Request $request) {
        
-        if ($request->user_id == "") {
-            return response()->json(['message' => 'user_id is required'], $this->failStatus);
-        }
-        
-        $userId = $request->user_id;
-        
-        $user_detail = User::find($userId);
-        if (!empty($user_detail)) {
-            $user_detail->uu_id = $request->uu_id;
-            $user_detail->device_type = $request->device_type;
-            $user_detail->device_token = $request->device_token;
-            $user_detail->device_model = $request->device_model;
-            $user_detail->device_os = $request->device_os;
-            $user_detail->app_version = $request->app_version;
-            $user_detail->api_version = $request->api_version;
-            $user_detail->save();
+        if ($request->user_id != "") {
+            $userId = $request->user_id;
+
+            $user_detail = User::find($userId);
+            if (!empty($user_detail)) {
+                $user_detail->uu_id = $request->uu_id;
+                $user_detail->device_type = $request->device_type;
+                $user_detail->device_token = $request->device_token;
+                $user_detail->device_model = $request->device_model;
+                $user_detail->device_os = $request->device_os;
+                $user_detail->app_version = $request->app_version;
+                $user_detail->api_version = $request->api_version;
+                $user_detail->save();
+            }
         }
             
         $device_token = UserDeviceToken::where('uu_id', $request->uu_id)->first();            

@@ -36,6 +36,7 @@ Route::Get('getcategorylist', 'v1\ConfigController@getCategoryList');
 Route::post('adddevicetoken', 'v1\LoginController@addDeviceToken');
     
 //Get Poster
+Route::post('getcategorylist', 'v1\PosterController@getCategoryList');
 Route::post('getposterlist', 'v1\PosterController@getPosterList');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
