@@ -287,9 +287,9 @@ class LoginController extends Controller {
         if(empty($device_token)) {
             $device_token = new UserDeviceToken();                
         }
-        $device_token->user_id = $user_detail->id;
-        $device_token->device_type = $request->device_type;
+        //$device_token->user_id = $user_detail->id;
         $device_token->uu_id = $request->uu_id;
+        $device_token->device_type = $request->device_type;
         $device_token->device_token = $request->device_token;
         $device_token->device_model = $request->device_model;
         $device_token->device_os = $request->device_os;
