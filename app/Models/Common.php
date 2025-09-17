@@ -712,18 +712,21 @@ class Common extends Model
 
         $title = "test Notification";
         $description = "testing ongoing ask test";
-        $projectId = "banner_app-304c6";
+        $projectId = "bannerapp-9867e";
 
         // Path to your Google service account credentials JSON file.
         $credentialsFilePath = \Storage::path('file.json');
 
         // Create a new Google Client instance.
+        
         $client = new GoogleClient();
 
         $client->setAuthConfig($credentialsFilePath); // Set the credentials file path.
+        
         $client->addScope('https://www.googleapis.com/auth/firebase.messaging');
         $client->refreshTokenWithAssertion(); // Refresh the token using the service account credentials.
         $token = $client->getAccessToken(); // Retrieve the OAuth 2.0 access token.
+        
 
         if (empty($token) || !isset($token['access_token'])) {
             return response()->json(['message' => 'Failed to retrieve access token'], 500);
@@ -753,9 +756,9 @@ class Common extends Model
         $datas['message'] = $data['message'];
 //        $datas['logoimage'] = $data['logoimage'];
         if ($devicetype == "IOS") {
-            $datas['title'] = 'Fans Play Louder';
+            $datas['title'] = 'PostBanner';
         } else {
-            $datas['title'] = 'Fans Play Louder';
+            $datas['title'] = 'PostBanner';
         }
         $datas['body'] = $data['message'];
 
@@ -767,7 +770,7 @@ class Common extends Model
             "message" => [
                 "token" => $fcm[0],
                 "notification" => [
-                    "title" => 'Fans Play Louder',
+                    "title" => 'PostBanner',
                     "body" => $data['message'],
                 ],
                 'data' => $datas,
