@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('auto:actionreminder')->everyMinute();
+        $schedule->command('auto:sharereminder')->everyMinute();
     })
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([

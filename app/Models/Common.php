@@ -148,7 +148,7 @@ class Common extends Model
         $save_notification->send_id = $data['to_id'];
         $save_notification->redirection_id = isset($data['redirection_id']) ? $data['redirection_id'] : '';
         $save_notification->message_test = strip_tags($data['notification_text']);
-        $save_notification->redirect_key = $data['redirect_key'];
+        $save_notification->redirect_key = isset($data['redirect_key']) ? $data['redirect_key'] : '';
         if(isset($data['display_type'])){
             $save_notification->display_type = $data['display_type'];
         }
