@@ -1,0 +1,191 @@
+.chart-dropshadow {
+    -webkit-filter: drop-shadow(0 6px 4px rgba(179, 186, 212, 0.5));
+    filter: drop-shadow(0 6px 4px rgba(179, 186, 212, 0.5));
+}
+
+.chart-tasks {
+    height: 15rem;
+    overflow: hidden;
+}
+
+.dash1-card {
+    p {
+        font-size: 14px;
+    }
+
+    .ratio {
+        position: absolute;
+        inset-inline-end: -10px;
+        top: 20px;
+        padding: 5px 15px;
+        background-color: #222222;
+        font-size: 13px;
+        line-height: 20px;
+        font-weight: 600;
+        color: #fff;
+        border-start-start-radius: 15px;
+        border-start-end-radius: 0px;
+        border-end-end-radius: 0px;
+        border-end-start-radius: 15px;
+        width: 55px;
+    }
+
+    .ratio-text {
+        position: absolute;
+        top: 55px;
+        inset-inline-end: 5px;
+        font-size: 13px;
+    }
+}
+
+.latest-timeline {
+    height: 368px;
+
+    ul.timeline {
+        list-style-type: none;
+        position: relative;
+        padding: 0;
+
+        .time-data {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        &>li {
+            margin: 20px 0;
+            padding: 0 0 0 2.5rem;
+            min-height: auto;
+
+            &:before {
+                content: " ";
+                background: $custom-white;
+                display: inline-block;
+                position: absolute;
+                border-radius: 50%;
+                border: 2px solid $primary;
+                inset-inline-start: 1px;
+                width: 15px;
+                height: 15px;
+                z-index: 1;
+            }
+
+            &:first-child:before {
+                border: 2px solid $success;
+            }
+
+            &:nth-child(2):before {
+                border: 2px solid $primary;
+            }
+
+            &:nth-child(3):before {
+                border: 2px solid $pink;
+            }
+
+            &:nth-child(4):before {
+                border: 2px solid $warning;
+            }
+
+            &:nth-child(5):before {
+                border: 2px solid $success;
+            }
+
+            &:nth-child(6):before {
+                border: 2px solid $purple;
+            }
+
+            &:last-child:before {
+                border: 2px solid $danger;
+            }
+        }
+
+        &:not(.timeline--horizontal):before {
+            // background-color: $default-background !important;
+            inset-inline-start: 9px;
+            width: 2px;
+            z-index: 1;
+            bottom: 0;
+            margin-inline-start: -2px;
+            top: 0;
+        }
+
+        &:before {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            content: " ";
+            display: inline-block;
+            position: absolute;
+            inset-inline-start: 10px;
+            height: 100%;
+            z-index: 1;
+            border-inline-start: 3px dotted var(--default-border);
+        }
+    }
+}
+
+.dot-label {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 100%;
+    margin-inline-end: 5px;
+}
+
+.list-card {
+    padding: 15px 15px;
+    border-radius: 5px;
+    border: 1px solid $default-border;
+    margin-bottom: 12px;
+    background: $custom-white;
+    position: relative;
+}
+
+.list-bar {
+    inset-inline-end: auto;
+    bottom: 0;
+    height: auto;
+    width: 3px;
+    border-radius: 0px;
+    position: absolute;
+    top: -1px;
+    inset-inline-start: 0;
+}
+
+.media-body,
+.media-left,
+.media-right {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.media-body {
+    flex: 1;
+    zoom: 1;
+    overflow: hidden;
+}
+.revenue-country-flags {
+    width: 28px;
+    height: 22px;
+}
+.customers .avatar i {
+    font-size: 20px !important;
+}
+.latest-transactions-list li {
+    padding: 0.6rem 1.25rem;
+    position: relative;
+}
+.sales-overview-product-image {
+    width: 24px;
+    height: 24px;
+}
+[dir="rtl"] {
+    .latest-timeline {
+        ul.timeline {
+            &>li {
+                padding: 0 2.5rem 0 0;
+            }
+        }
+    }
+    .simplebar-track {
+        left: 0;
+        right: inherit;
+    }
+}

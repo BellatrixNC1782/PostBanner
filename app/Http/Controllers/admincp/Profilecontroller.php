@@ -11,17 +11,14 @@ use Auth;
 use App\Models\Admin;
 use Session;
 use DB;
+use App\Mail\EmailTemplate;
+use Illuminate\Support\Facades\Mail;
 
 class Profilecontroller extends Controller 
 {
 
     public $data = [];
-
-    public function __construct() {
-
-        $this->middleware('admincp');
-    }
-
+    
     public function index(Request $request) {
         $this->data['user_detail'] = Admin::find(Auth::guard('admin')->User()->id);
 
@@ -63,13 +60,14 @@ class Profilecontroller extends Controller
         if (!$user_detail) {
             return redirect()->back()->with('error', 'Information not found.');
         } else {
+                
             if ($request->hasFile('image')) {
-                $result = Common::uploadImageS3($request->image);
+                $result = Common::uploadSingleImage($request->image,'admin');
 
                 if ($result['status'] == 0) {
                     return redirect()->back()->with('error', 'Result not found.');
                 } else {
-                    $user_detail->image = $result['data']['image_name'];
+                    $user_detail->image = $result['data'];
                 }
             }
 
@@ -80,10 +78,26 @@ class Profilecontroller extends Controller
             $user_detail->updated_at = date('Y-m-d h:i:s');
 
             if ($user_detail->save()) {
-                return redirect()->route('dashboard')->with('success', 'Profile updated successfully.');
+                return redirect()->route('profile')->with('success', 'Profile updated successfully.');
             }
             return redirect()->back()->with('error', 'Something went wrong.please try again.');
         }
     }
+    
+    /*public function emailVerify(Request $request) {
+        
+        if(!empty(Auth::guard('admin')->User()->id)){
+            Auth::guard('admin')->logout();
+        }
+        $checkToken = Admin::where('email_token',$request->varifylink)->first();
+        
+        if(empty($checkToken)){
+            return redirect()->route('admincplogin')->with('error', 'Token is invalid!');
+        }
+        
+        Admin::where('email_token',$request->varifylink)->update(array('email' => $checkToken->new_email,'new_email' => NULL,'email_token' => NULL));
+        
+        return redirect()->route('admincplogin')->with('success', 'Email updated successfully, please login using new email..!');
+    }*/
 
 }

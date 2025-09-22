@@ -1,54 +1,83 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <meta charset="utf-8" />
-        <title>Webarch - Responsive Admin Dashboard</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <!-- BEGIN PLUGIN CSS -->
-        <link href="{{ asset('public/admin/assets/plugins/pace/pace-theme-flash.css') }}" rel="stylesheet" type="text/css" media="screen" />
-        <link href="{{ asset('public/admin/assets/plugins/bootstrapv3/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('public/admin/assets/plugins/bootstrapv3/css/bootstrap-theme.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="{{ asset('public/admin/assets/plugins/animate.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('public/admin/assets/plugins/jquery-scrollbar/jquery.scrollbar.css') }}" rel="stylesheet" type="text/css" />
-        <!-- END PLUGIN CSS -->
-        <!-- BEGIN CORE CSS FRAMEWORK -->
-        <link href="{{ asset('public/admin/webarch/css/webarch.css') }}" rel="stylesheet" type="text/css" />
-        <!-- END CORE CSS FRAMEWORK -->
-        <!-- Alertify -->
-        <link rel="stylesheet" href="{{ asset('public/admin/assets/css/alertify.min.css')}}">
-    </head>
-    <!-- END HEAD -->
-    <!-- BEGIN BODY -->
-    <body class="error-body no-top lazy" data-original="{{ asset('public/admin/assets/img/work.jpg') }}" style="background-image: url('{{ asset('public/admin/assets/img/work.jpg') }}')">
-        @yield('content')
+<html lang="en" dir="ltr" data-nav-layout="vertical" data-theme-mode="light" data-header-styles="light" data-menu-styles="light" data-toggled="close">
 
-        <!-- END CONTAINER -->
-        <script src="{{ asset('public/admin/assets/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
-        <!-- BEGIN JS DEPENDECENCIES-->
-        <script src="{{ asset('public/admin/assets/plugins/jquery/jquery-1.11.3.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/admin/assets/plugins/bootstrapv3/js/bootstrap.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/admin/assets/plugins/jquery-block-ui/jqueryblockui.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/admin/assets/plugins/jquery-unveil/jquery.unveil.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/admin/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/admin/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/admin/assets/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/admin/assets/plugins/bootstrap-select2/select2.min.js') }}" type="text/javascript"></script>
-        <!-- END CORE JS DEPENDECENCIES-->
-        <!-- BEGIN CORE TEMPLATE JS -->
-        <!--<script src="{{ asset('public/admin/assets/js/webarch.js') }}" type="text/javascript"></script>-->
-        <script src="{{ asset('public/admin/assets/js/chat.js') }}" type="text/javascript"></script>
-        <!-- END CORE TEMPLATE JS -->
+<head>
 
-        <!-- Alertify -->
-        <script src="{{ asset('public/admin/assets/js/jquery.validate.min.js') }}"></script>
-        <script src="{{ asset('public/admin/assets/js/validation.js') }}"></script>
-        <script src="{{ asset('public/admin/assets/js/alertify.min.js')}}"></script>
-        
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> Anjana Yoga </title>
+    <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template">
+    <meta name="Author" content="Spruko Technologies Private Limited">
+	<meta name="keywords" content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('public/images/favicons.ico') }}" type="image/x-icon">
+
+    <!-- Main Theme Js -->
+    <script src="{{ asset('public/admin/assets/js/main.js') }}"></script>
+    
+    <!-- Bootstrap Css -->
+    <link id="style" href="{{ asset('public/admin/assets/libs/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" >
+
+    <!-- Style Css -->
+    <link href="{{ asset('public/admin/assets/css/styles.min.css') }}" rel="stylesheet" >
+
+    <!-- Icons Css -->
+    <link href="{{ asset('public/admin/assets/css/icons.css') }}" rel="stylesheet" >
+    <!-- Alertify -->
+    <link rel="stylesheet" href="{{ asset('public/admin/assets/css/alertify.min.css')}}">
+    
+    <style>
+        .btn-primary:hover {
+            color: #fff !important;
+        }
+    </style>
+
+</head>
+
+<body> 
+@yield('content')
+
+<!-- Loader -->
+<div id="loader" >
+    <img src="{{ asset('public/admin/assets/images/media/loader.svg') }}" alt="">
+</div>
+<!-- Loader -->
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="{{ asset('public/admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+<!-- Custom-Switcher JS -->
+<script src="{{ asset('public/admin/assets/js/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('public/admin/assets/js/validation.js') }}"></script>
+<!-- Alertify -->
+<script src="{{ asset('public/admin/assets/js/alertify.min.js')}}"></script>
+    
+
         @yield('javascript')
+    <script>
+    let html = document.querySelector("html");
+        html.style.setProperty(
+          "--primary-rgb",
+          `131, 85, 254`
+        );
+        localStorage.setItem(
+          "primaryRGB",
+          `131, 85, 254`
+        );
+</script>
+    <script>
+        function hideLoader() {
+            const loader = document.getElementById("loader");
+            loader.classList.add("d-none")
+          }
+
+          window.addEventListener("load", hideLoader);
+    </script>
 
         @if(Session::get("error"))
         <script>
@@ -66,5 +95,6 @@
             });
         </script>
         @endif
-    </body>
+</body>
+
 </html>

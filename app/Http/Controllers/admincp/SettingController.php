@@ -27,6 +27,7 @@ class SettingController extends Controller {
             's.setting_title',
             's.setting_key',
             's.setting_value',
+            's.type',
             's.created_at',
             's.updated_at',
         );
@@ -35,6 +36,7 @@ class SettingController extends Controller {
             's.setting_title',
             's.setting_key',
             's.setting_value',
+            's.type',
             's.created_at',
         );
         $condition = array();
@@ -79,6 +81,7 @@ class SettingController extends Controller {
         $savesetting->setting_key = $alias_names;
         $savesetting->alias_name = $alias_names;
         $savesetting->setting_value = $request->setting_value;
+        $savesetting->type = $request->type;
         
         $savesetting->save();
         return redirect()->route('settinglist')->with('success', 'Setting added successfully');
@@ -125,6 +128,7 @@ class SettingController extends Controller {
         
         $edit_setting->setting_title = $request->setting_title;
         $edit_setting->setting_value = $request->setting_value;
+        $edit_setting->type = $request->type;
        
         $edit_setting->save();
         return redirect()->route('settinglist')->with('success', 'Setting updated successfully');

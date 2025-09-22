@@ -13,13 +13,31 @@ use Session;
 use App\Models\Settings;
 use App\Mail\EmailTemplate;
 use Illuminate\Support\Facades\Mail;
-use App\Jobs\SendEmailJob;
+use App\Notifications\AdminForgotpassword;
+use App\Jobs\SendMailJob;
 
 class LoginController extends Controller
 {
     public $data = [];
     
     public function index(Request $request) {
+        
+                                
+        if(isset($request->varifylink)){
+            if(!empty(Auth::guard('admin')->User()->id)){
+                Auth::guard('admin')->logout();
+            }
+            $checkToken = Admin::where('email_token',$request->varifylink)->first();
+
+            if(empty($checkToken)){
+                return redirect()->route('admincp')->with('error', 'Token is invalid!');
+            }
+
+            Admin::where('email_token',$request->varifylink)->update(array('email' => $checkToken->new_email,'new_email' => NULL,'email_token' => NULL));
+
+            return redirect()->route('admincp')->with('success', 'Email updated successfully, please login using new email..!');
+        }
+        
         if (!Auth::guard('admin')->check()) {
             return view('admincp.login.index', $this->data);
         }
@@ -33,6 +51,7 @@ class LoginController extends Controller
     }
     
     public function login(Request $request) {
+        
         $messages = array(
             'email.required' => 'Please enter an email',
             'email.email' => 'Invalid Email',
@@ -56,9 +75,6 @@ class LoginController extends Controller
         $checkEmailExist = Admin::where('email',$request->email)->get();
         if ($checkEmailExist->isEmpty()) {
             return redirect()->back()->with('error', 'Email does not exist');
-        }
-        if (!Hash::check($request->password, $checkEmailExist[0]->password)) {
-            return redirect()->back()->with('error', 'Invalid password')->withInput($request->all);
         }
         $remember_me = $request->has('remember') ? true : false;
         
@@ -101,29 +117,28 @@ class LoginController extends Controller
         $this->data['forgot_otp_number'] = $checkEmailExist->msg_otp;
         $this->data['first_name'] = $checkEmailExist->first_name;
         $this->data['last_name'] = $checkEmailExist->last_name;
-                
-        //Mail send
         
-        $setting_val = 5;
+        
+        $setting_val = 30;
         $setting_value = Settings::where('alias_name','EMAIL_MOBILE_OTP_EXPIRE_TIME')->get();
-
+      
         if(!$setting_value->isEmpty())
         {
             $setting_val = $setting_value[0]->setting_value;
         }
-
-        $alias = "fans_play_louder_reset_your_password_admin";
+        
+        $checkEmailExist->notify(new AdminForgotpassword($checkEmailExist));
+        
+        //Mail send
+        
+       /* $alias = "anjanayoga_forgot_password_verification_admin";
         $arrayreplace = array();
-        $arrayreplace[] = "/{banner_img}/";
-        $arrayreplace[] = "/{banner_icon_img}/";
-        $arrayreplace[] = "/{user_name}/";
-        $arrayreplace[] = "/{otp}/";
-        $arrayreplace[] = "/{exp_minute}/";
+        $arrayreplace[] = "{user_name}";
+        $arrayreplace[] = "{verification_code}";
+        $arrayreplace[] = "{expire_min}";
 
         $arrayreplacedata = array();
-        $arrayreplacedata[] = env('APP_URL') . '/public/images/email/email-header-bg.png';
-        $arrayreplacedata[] = env('APP_URL') . '/public/images/email/forgot-password-icon.png';
-        $arrayreplacedata[] = ucfirst($checkEmailExist->first_name).' '.$checkEmailExist->last_name;
+        $arrayreplacedata[] = $checkEmailExist->first_name.' '.$checkEmailExist->last_name;
         $arrayreplacedata[] = $otp;
         $arrayreplacedata[] = $setting_val;
 
@@ -134,10 +149,9 @@ class LoginController extends Controller
         $this->data['email'] = $checkEmailExist->email;
 
 
-        SendEmailJob::dispatch($this->data);
-        
-        //End Mail send
-
+        SendMailJob::dispatch($this->data);
+        //End Mail send*/
+                
         return redirect()->route('adminverifyotp')->with('success', 'Verification code sent successfully.');
     }
     
@@ -237,7 +251,7 @@ class LoginController extends Controller
     public function resendotp(Request $request) {
         $admin_email = Session::get('requestEmail');
         if ($admin_email === null) {
-            $admin_email = Admin::find(Auth::guard('admin')->User()->id);
+            $admin_email = Admin::find(Auth::guard('admin')->User()->id)->email;
         }
         $save_admin = Admin::where('email', $admin_email)->get()->first();
 
@@ -249,28 +263,26 @@ class LoginController extends Controller
             $save_admin->otp_expire_time = $otp_expire;
             $save_admin->save();
             
-            //Mail send
-        
-            $setting_val = 5;
+            $setting_val = 30;
             $setting_value = Settings::where('alias_name','EMAIL_MOBILE_OTP_EXPIRE_TIME')->get();
 
             if(!$setting_value->isEmpty())
             {
                 $setting_val = $setting_value[0]->setting_value;
             }
+            
+            $save_admin->notify(new AdminForgotpassword($save_admin));
 
-            $alias = "fans_play_louder_reset_your_password_admin";
+            //Mail send
+            
+            /*$alias = "anjanayoga_forgot_password_verification_admin";
             $arrayreplace = array();
-            $arrayreplace[] = "/{banner_img}/";
-            $arrayreplace[] = "/{banner_icon_img}/";
-            $arrayreplace[] = "/{user_name}/";
-            $arrayreplace[] = "/{otp}/";
-            $arrayreplace[] = "/{exp_minute}/";
+            $arrayreplace[] = "{user_name}";
+            $arrayreplace[] = "{verification_code}";
+            $arrayreplace[] = "{expire_min}";
 
             $arrayreplacedata = array();
-            $arrayreplacedata[] = env('APP_URL') . '/public/images/email/email-header-bg.png';
-            $arrayreplacedata[] = env('APP_URL') . '/public/images/email/forgot-password-icon.png';
-            $arrayreplacedata[] = ucfirst($save_admin->first_name).' '.$save_admin->last_name;
+            $arrayreplacedata[] = $save_admin->first_name.' '.$save_admin->last_name;
             $arrayreplacedata[] = $otp;
             $arrayreplacedata[] = $setting_val;
 
@@ -281,8 +293,8 @@ class LoginController extends Controller
             $this->data['email'] = $save_admin->email;
 
 
-            SendEmailJob::dispatch($this->data);
-
+            SendMailJob::dispatch($this->data);*/
+            
             //End Mail send
             
             return response()->json(['status' => 'success']);

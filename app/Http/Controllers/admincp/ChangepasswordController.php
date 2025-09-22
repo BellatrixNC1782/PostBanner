@@ -13,9 +13,6 @@ class ChangepasswordController extends Controller
 {
     public $data = [];
 
-    public function __construct() {
-        $this->middleware('admincp');
-    }
     
     public function updatepassword(Request $request) {
         $messsages = array(

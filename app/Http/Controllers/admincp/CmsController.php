@@ -27,7 +27,7 @@ class CmsController extends Controller
 
     public function getCms(Request $request) {
         $columns = array('id', 'document_name', 'document_type', 'updated_at');
-        $getfiled = array('id', 'document_name', 'document_type', 'created_at', 'updated_at');
+        $getfiled = array('id', 'document_name', 'document_type', 'created_at','updated_at');
         $condition = array();
         $join_str = array();
         echo Cms::getCms('cms', $columns, $condition, $getfiled, $request, $join_str);
@@ -41,14 +41,14 @@ class CmsController extends Controller
         $rules = array(
             'document_name' => 'required|min:2|max:32',
             'document_type' => 'required|unique:cms,document_type',
-            'document_file' => 'required|min:20',
+            'document_file' => 'required',
         );
         $messages = array(
             'document_name.required' => 'Please enter document name',
             'document_name.min' => 'Please enter minimum 2 characters of document name',
             'document_name.max' => 'Please enter document name in 32 charactors',
             'document_file.required' => 'Please enter description',
-            'document_file.min' => 'Description should be min 20  characters',
+//            'document_file.min' => 'Description should be min 20  characters',
         );
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {            
@@ -81,14 +81,14 @@ class CmsController extends Controller
         $rules = array(
             'document_name' => 'required|min:2|max:32',
             'document_type' => 'required|unique:cms,document_type,'.base64_decode($request->cms_id),
-            'document_file' => 'required|min:20',
+            'document_file' => 'required',
         );
         $messages = array(
             'document_name.required' => 'Please enter document name',
             'document_name.min' => 'Please enter minimum 2 characters of document name',
             'document_name.max' => 'Please enter document name in 32 charactors',
             'document_file.required' => 'Please enter description',
-            'document_file.min' => 'Description should be min 20  characters',
+//            'document_file.min' => 'Description should be min 20  characters',
         );
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {

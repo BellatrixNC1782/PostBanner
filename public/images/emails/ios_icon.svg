@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="217.895" height="76.356" viewBox="0 0 217.895 76.356">
+  <g id="Group_37674" data-name="Group 37674" transform="translate(-318 -795)">
+    <rect id="Rectangle_73" data-name="Rectangle 73" width="217.895" height="76.356" rx="8" transform="translate(318 795)" fill="#0e0e0e"/>
+    <g id="Group_27534" data-name="Group 27534" transform="translate(344.18 812.453)">
+      <path id="Icon_awesome-apple" data-name="Icon awesome-apple" d="M27.441,22.678a8.057,8.057,0,0,1,4.315-7.319,9.273,9.273,0,0,0-7.31-3.849c-3.064-.242-6.412,1.786-7.638,1.786-1.295,0-4.263-1.7-6.594-1.7C5.4,11.674.281,15.437.281,23.092A21.51,21.51,0,0,0,1.524,30.1c1.1,3.167,5.092,10.935,9.252,10.805,2.175-.052,3.711-1.545,6.542-1.545,2.744,0,4.168,1.545,6.594,1.545,4.194-.06,7.8-7.12,8.855-10.3A8.555,8.555,0,0,1,27.441,22.678ZM22.556,8.507A8.129,8.129,0,0,0,24.628,2.25a9.151,9.151,0,0,0-5.86,3.012,8.256,8.256,0,0,0-2.209,6.205C18.811,11.64,20.865,10.483,22.556,8.507Z" transform="translate(-0.281 -1.159)" fill="#fff"/>
+      <g id="Group_27532" data-name="Group 27532" transform="translate(51.985)">
+        <text id="Download_on_the" data-name="Download on the" transform="translate(3.272 11)" fill="#fff" font-size="12" font-family="HelveticaNowDisplay-Medium, Helvetica Now Display" font-weight="500" letter-spacing="0.012em"><tspan x="0" y="0">Download on the</tspan></text>
+        <text id="App_Store" data-name="App Store" transform="translate(0 35.18)" fill="#fff" font-size="22" font-family="HelveticaNowDisplay-Bold, Helvetica Now Display" font-weight="700" letter-spacing="0.012em"><tspan x="0" y="0">App Store</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

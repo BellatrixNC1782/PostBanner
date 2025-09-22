@@ -1,0 +1,152 @@
+.card-custom-icon {
+    position: absolute;
+    inset-inline-end: 25px;
+    font-size: 60px;
+    top: 15px;
+    width: 60px;
+    height: 60px;
+    &.text-success {
+        fill: $success;
+    }
+    &.text-secondary {
+        fill: $secondary;
+    }
+    &.text-primary {
+        fill: $primary;
+    }
+}
+.icon-dropshadow-success {
+    filter: drop-shadow(0px 4px 4px rgba(var(--success-rgb), 0.3));
+}
+.icon-dropshadow-primary {
+    filter: drop-shadow(0px 4px 4px rgba(var(--primary-rgb), 0.3));
+}
+.icon-dropshadow-secondary {
+    filter: drop-shadow(0px 4px 4px rgba(var(--secondary-rgb), 0.3));
+}
+.icon-dropshadow-warning {
+    filter: drop-shadow(0px 4px 4px rgba(var(--warning-rgb), 0.3));
+}
+.icon-dropshadow-info {
+    filter: drop-shadow(0px 4px 4px rgba(var(--info-rgb), 0.3));
+}
+.icon-dropshadow-danger {
+    filter: drop-shadow(0px 4px 4px rgba(var(--danger-rgb), 0.3));
+}
+.border-transparent {
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+.icon.icon-shape {
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    font-size: 12px;
+}
+.list-icons .svg-icon2, .list-icons .svg-icon {
+    width: 60px;
+    height: 60px;
+}
+.card-custom-icon.text-secondary, .fill-secondary {
+    fill: $secondary;
+}
+.fill-transparent {
+    fill: transparent;
+}
+.img-gallery>.col, .img-gallery>[class*=col-] {
+    padding-inline-start: 0.25rem;
+    padding-inline-end: 0.25rem;
+    padding-block-end: 0.5rem;
+}
+.link-overlay-bg {
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    bottom: 0;
+    background: $primary-08;
+    display: flex;
+    color: $white;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    opacity: 0;
+    transition: 0.3s opacity;
+}
+.link-overlay:hover .link-overlay-bg {
+    opacity: 1;
+}
+.link-overlay {
+    position: relative;
+}
+.facebook {
+    background: #3b5998;
+}
+.twitter {
+    background: #1da1f2;
+}
+.linkedin {
+    background: #0077b5;
+}
+.instagram {
+    background: #de497b;
+}
+.social i {
+    font-size: 40px;
+}
+#total-revenue,#unique-visitors,#expenses {
+    .apexcharts-grid line {
+        stroke: transparent;
+    }
+}
+#sparkline_bar11, #sparkline_bar12, #sparkline_bar13, #sparkline_bar14 {
+    .apexcharts-bar-series.apexcharts-plot-series .apexcharts-series .apexcharts-bar-area {
+        stroke: transparent !important;
+    }
+    .apexcharts-grid line, .apexcharts-grid-borders line, .apexcharts-xaxis line {
+        stroke: transparent !important;
+    }
+}
+.CryptoChart,.CryptoChart1,.CryptoChart2,.CryptoChart3{
+    height: 145px !important;
+}
+#CryptoChart, #CryptoChart1, #CryptoChart2, #CryptoChart3 {
+    width: 160%!important;
+    height: 140px!important;
+    inset-block-end: 31px;
+    position: relative;
+    inset-inline-end: 70px;
+    inset-inline-start: auto;
+}
+.widget-line-list li {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 27px;
+    padding-block-start: 5px;
+    padding-inline-end: 20px;
+    padding-block-end: 0;
+    padding-inline-start: 15px;
+    list-style-type: none;
+}
+#shares,#projects,#users {
+    display: flex;
+    justify-content: center;
+}
+#shares,#projects,#users {
+    .apexcharts-canvas,.apexcharts-svg {
+        width: inherit!important;
+    }
+} 
+.chart-circle-value {
+    position: absolute;
+    inset: 0;
+    margin-inline: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    line-height: 1;
+    font-size: 25px;
+}
