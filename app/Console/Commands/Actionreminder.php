@@ -83,13 +83,15 @@ class Actionreminder extends Command
                         $fitendayval = $val->{'15_day_notify'};
                         $thirtydayval = $val->{'30_day_notify'};
                         
+                        $type = 1;
+
                         if(($check_date == $past_7_day_date) && ($sevendayval == 'No')){
                             echo '7 days';
                             $notificationContent = [];
                             $notificationContent['message'] = "Need help getting started? Try our beginner templates.";
                             $notificationContent['redirection_id'] = Null;
                             $notification_token = array($val->device_token);
-                            $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $val->device_type);
+                            $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $val->device_type, $type);
                             UserDeviceToken::where('id',$val->id)->update(array('7_day_notify' => 'Yes'));
                         }
                         if(($check_date == $past_15_day_date) && ($fitendayval == 'No')){
@@ -98,7 +100,7 @@ class Actionreminder extends Command
                             $notificationContent['message'] = "Don’t forget: You can resize posters for Instagram, Facebook & more.";
                             $notificationContent['redirection_id'] = Null;
                             $notification_token = array($val->device_token);
-                            $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $val->device_type);
+                            $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $val->device_type, $type);
                             UserDeviceToken::where('id',$val->id)->update(array('15_day_notify' => 'Yes'));
                         }
                         if(($check_date == $past_30_day_date) && ($thirtydayval == 'No')){
@@ -107,7 +109,7 @@ class Actionreminder extends Command
                             $notificationContent['message'] = "Still exploring? Create your first poster in under 2 minutes!";
                             $notificationContent['redirection_id'] = Null;
                             $notification_token = array($val->device_token);
-                            $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $val->device_type);
+                            $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $val->device_type, $type);
                             UserDeviceToken::where('id',$val->id)->update(array('30_day_notify' => 'Yes'));
                         }
                     }

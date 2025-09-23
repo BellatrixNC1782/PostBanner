@@ -703,7 +703,7 @@ class Common extends Model
         return $setting->first()->setting_value;
     }
 
-    public static function sendPushNotification($token, $data, $devicetype, $flag = 0) {
+    public static function sendPushNotification($token, $data, $devicetype, $flag = 0, $type) {
         $fcm = $token; // Assume $token contains the FCM token for the user.
 
         if (!$fcm) {
@@ -745,10 +745,19 @@ class Common extends Model
         }
 
         $datas['redirect_key'] = 'notification_list';
-        if(isset($data['redirect_key']))
+        
+
+        if($type == 1 || $type == 3)
         {
-            $datas['redirect_key'] = $data['redirect_key'];
+            if(isset($data['redirect_key']))
+            {
+                $datas['redirect_key'] = $data['redirect_key'];
+            }            
+        }else{            
+            $datas['redirect_key'] = "my_save_list";
         }
+
+
 
         $datas['text'] = $data['message'];
 //        $datas['title'] = $data['title'];

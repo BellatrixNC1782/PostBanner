@@ -320,12 +320,14 @@ class LoginController extends Controller {
                 return response()->json(['message' => $messages[0]], $this->failStatus);
             }
         }
+
+        $type = 3;
         
         $notificationContent = [];
         $notificationContent['message'] = "Test Notification: This is a sample push message.";
         $notificationContent['redirection_id'] = Null;
         $notification_token = array($request->device_token);
-        $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $request->device_type);
+        $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $request->device_type, $type);
         
         return response()->json(['message' => 'Notification send successfully'],$this->successStatus);   
     }

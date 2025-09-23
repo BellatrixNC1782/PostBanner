@@ -75,8 +75,10 @@ class Sharereminder extends Command
                             $notificationContent['redirection_id'] = Null;
                             $notification_token = array($userInfo->device_token);
 
+                            $type = 2;
+
                             if ($userInfo->push_notify == 'Yes' && $userInfo->device_token != Null) {
-                                $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $userInfo->device_type);
+                                $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $userInfo->device_type, $type);
                             }
 
                             $save_notification = array(
