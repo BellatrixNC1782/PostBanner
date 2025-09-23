@@ -634,6 +634,31 @@ use OpenApi\Annotations as OA;
  *      security={ {"bearer": {}} }
  *    )
  * )
+ * @OA\PathItem(
+ *     path="/sendpushnotification",
+ *     @OA\Post(
+ *         summary="Send push notification",
+ *         description="Send push notification",
+ *         operationId="sendpushnotification",
+ *         tags={"Notification"},
+ *         @OA\RequestBody(
+ *             required=true,
+ *             description="Pass devise detail",
+ *             @OA\JsonContent(
+ *                  required={"device_token","device_type"},
+ *                  @OA\Property(property="device_token", type="string", format="string", example="123"),
+ *                  @OA\Property(property="device_type", type="string", format="string", example="Android")
+ *             )
+ *         ),
+ *         @OA\Response(
+ *             response=422,
+ *             description="Wrong credentials response",
+ *             @OA\JsonContent(
+ *                 @OA\Property(property="message", type="string", example="Sorry, wrong email address. Please try again")
+ *             )
+ *         )
+ *     )
+ * )
  */
 class Controller extends BaseController {
 

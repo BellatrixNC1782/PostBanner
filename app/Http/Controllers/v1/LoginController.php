@@ -301,4 +301,32 @@ class LoginController extends Controller {
         return response()->json(['message' => 'Token saved successfully'],$this->successStatus);       
     }
     /********************   END : Add device token    *********************/
+    
+    public function sendPushNotification(Request $request){
+        
+        $messages = array(
+            'device_token.required' => 'Please pass the devise tokene.',
+            'device_type.required' => 'Please pass the devise type.',
+        );
+
+        $rules = array(
+            'device_token' => 'required',
+            'device_type' => 'required',
+        );
+        
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            foreach ($validator->messages()->getMessages() as $field_name => $messages) {
+                return response()->json(['message' => $messages[0]], $this->failStatus);
+            }
+        }
+        
+        $notificationContent = [];
+        $notificationContent['message'] = "Test Notification: This is a sample push message.";
+        $notificationContent['redirection_id'] = Null;
+        $notification_token = array($request->device_token);
+        $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $request->device_type);
+        
+        return response()->json(['message' => 'Notification send successfully'],$this->successStatus);   
+    }
 }

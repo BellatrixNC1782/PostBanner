@@ -39,6 +39,9 @@ Route::post('adddevicetoken', 'v1\LoginController@addDeviceToken');
 Route::post('getcategorylist', 'v1\PosterController@getCategoryList');
 Route::post('getposterlist', 'v1\PosterController@getPosterList');
 
+//Send push notification
+Route::post('sendpushnotification', 'v1\LoginController@sendPushNotification');
+
 Route::group(['middleware' => ['jwt.verify']], function() {
     
     //Profile
