@@ -1,1 +1,1 @@
-<p> Privacy Policy </p>
+{!! $privacypolicy->document_file !!}

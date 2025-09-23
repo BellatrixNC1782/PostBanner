@@ -1,1 +1,1 @@
-<p> Terms of Use </p>
+{!! $termscondition->document_file !!}
