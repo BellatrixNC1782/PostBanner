@@ -703,7 +703,7 @@ class Common extends Model
         return $setting->first()->setting_value;
     }
 
-    public static function sendPushNotification($token, $data, $devicetype, $flag = 0, $type) {
+    public static function sendPushNotification($token, $data, $devicetype, $type, $flag = 0) {
         $fcm = $token; // Assume $token contains the FCM token for the user.
 
         if (!$fcm) {
