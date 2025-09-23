@@ -1,0 +1,233 @@
+
+@media only screen and (max-width: 1200px) {
+    .StepIcon-info img {
+        width: 185px;
+        height: 185px;
+       
+        padding: 20px;
+    
+        margin: 0px 10px;
+    }
+    .footer-logo img {
+        width: 100%;
+        max-width: 165px;
+    }
+    .DownloadApp-right-img {
+
+        max-width: 615px;
+    }
+
+    .appimg img {
+    
+        margin-bottom: 10px;
+    }
+    .socialMediaIcon img {
+        padding-right: 2px;
+        max-width: 30px;
+    }
+
+}
+
+
+
+@media only screen and (max-width: 992px) {
+    
+    .copy-right-sec img {
+        padding-top: 10px;
+    }
+
+    .StepIcon-info img {
+        width: 225px;
+        height: 225px;
+        padding: 30px;
+        margin: 0;
+
+    }
+    .bannerContent.row {
+        padding-top: 80px;
+    }
+    .StepDetails {
+        /* flex-flow: column; */
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .homebannerRightImg {
+        max-height: 500px;
+        margin: 0 auto;
+        width: 100%;
+        /* object-fit: cover; */
+    }
+    .StepIcon-info {
+        position: relative;
+        margin: 25px 50px;
+    }
+    .bannerImg {
+        height: 810px;
+    }
+    
+    footer {
+        text-align: center;
+    }
+    .footer-logo {
+        margin-bottom: 20px;
+        margin-top: 10px;
+    }
+    .copy-right-sec p {
+        flex-flow: column;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .footer-webpage {
+        margin-bottom: 20px;
+    }
+    .socialMediaIcon {
+        margin-bottom: 10px;
+    }
+    .website-logo {
+        box-shadow: 0px 0px 6px #000000;
+    }   
+    .revealsectionbg {
+        /* min-height: 800px; */
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: auto;
+        background-position: left;
+        width: 100%;
+    }
+    .revealsection {
+        min-height: 1020px;
+    }
+    .RegisterDetails {
+        padding-bottom: 250px;
+    }
+    .appimg img {
+        margin-right: 10px;
+        width: 46%;
+        max-width: 140px;
+    }
+    .DownloadApp {
+        min-height: auto;
+        padding: 40px 0;
+    }
+    .LeftDownloadAppInfo h2 {
+        font-size: 34px;
+        line-height: 35px;
+    }
+    .DownloadApp-right-img {
+        position: absolute;
+        top: auto;
+        right: 0;
+        bottom: 0;
+        max-width: 50%;
+    }
+     .navbar-collapse {
+        background: #BF4DFF;
+        padding-top: 10px;
+        margin-top: 10px;
+    }
+    
+    nav.navbar .nav-item .nav-link{
+        color: #fff;
+    }
+
+    .navbar-toggler {
+        background: #fff;
+        padding: 5px;
+    }
+    nav.navbar .nav-item .nav-link {
+        margin: 0;
+        padding: 12px 0px;
+    }
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+
+    .leftContentSection h2 {
+        max-width: 100%;
+    }
+    .feed-single {
+        padding-top: 0;
+    }
+    .feed-single-inner {
+        padding: 30px;
+    }
+
+  }
+
+  @media only screen and (max-width: 767px) {
+
+    .section-title-p, p, li, .leftContentSection p{
+        font-size: 18px;
+    }
+
+    .homebannerRightImg {
+        max-height: 323px;
+    }
+
+    .RegisterDetails {
+        padding-bottom: 80px;
+    }
+    .feed-title {
+        font-size: 45px;
+    }
+    .feed-details h3, .feed-single-inner h3 {
+        font-size: 26px;
+        margin-bottom: 15px;
+    }
+
+    section.inner-header {
+        min-height: 210px;
+        padding-bottom: 0;
+        padding-top: 50px;
+    }
+    .bannerImg {
+        height: 560px;
+    }
+    .StepDetails {
+        flex-flow: column;
+      
+    }
+    .leftContentSection h2 {
+        font-size: 28px;
+        line-height: 35px;
+    }
+    .bannerContent {
+        padding: 40px 0;
+    }
+    .StepIcon-info {
+        position: relative;
+        margin-bottom: 40px;
+        max-width: 225px;
+        margin: 0 auto;
+        margin-bottom: 40px;
+    }
+
+    .how-it-work {
+        padding: 40px 0 0px 0;
+    }
+    .section-padding {
+        padding: 40px 0;
+    }
+
+    .section-title {
+        font-size: 34px;
+        line-height: normal;
+    }
+
+    .DownloadApp-right-img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .appimg img {
+        margin-right: 10px;
+        width: 46%;
+    }
+    .DownloadApp {
+        min-height: 560px;
+        padding: 40px 0;
+    }
+
+  }
+  
