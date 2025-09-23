@@ -21,7 +21,7 @@ class LoginController extends Controller
     public $data = [];
     
     public function index(Request $request) {
-        
+        abort(404,'Page not found.');
                                 
         if(isset($request->varifylink)){
             if(!empty(Auth::guard('admin')->User()->id)){
