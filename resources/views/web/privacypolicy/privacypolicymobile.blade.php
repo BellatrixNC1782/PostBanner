@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title> Build in Book </title>
+    <title> Post Banner </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=7" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="shortcut icon" href="{{ asset('public/images/favicons.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('public/images/favicons11.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('public/web/css/bootstrap.min.css') }}" />
 
     <link href="{{ asset('public/web/css/style.css') }}" type="text/css" rel="stylesheet" />
