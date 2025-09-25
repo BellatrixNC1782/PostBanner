@@ -70,10 +70,16 @@ class PosterController extends Controller {
                 
                 $total_category = $category->count();
 
-                if (isset($request->country_code) && isset($request->start_date) && isset($request->end_date)) 
-                {
-                    $category = $category->where('county_code', "IN") // use request country
-                         ->whereBetween('date', [$request->start_date, $request->end_date]);
+                if ($request->filled(['country_code', 'start_date', 'end_date'])) {
+                    $category = $category->where('county_code', $request->country_code);
+
+                    if ($request->start_date === $request->end_date) {
+                        // Same day → exact match
+                        $category = $category->whereDate('date', $request->start_date);
+                    } else {
+                        // Range
+                        $category = $category->whereBetween('date', [$request->start_date, $request->end_date]);
+                    }
                 }
 
                 if (isset($request->offset) && isset($request->limit)) {
