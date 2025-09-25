@@ -28,6 +28,17 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google_calendar' => [
+        'api_key' => env('GOOGLE_CALENDAR_API_KEY'),
+        'holiday_calendar_id_india' => 'en.indian.official#holiday@group.v.calendar.google.com',
+        'holiday_calendar_id_india1' => 'en.islamic#holiday@group.v.calendar.google.com',
+        'holiday_calendar_id_india2' => 'en.christian#holiday@group.v.calendar.google.com',
+    ],
+
+    'google' => [
+        'api_key' => env('GOOGLE_API_KEY'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

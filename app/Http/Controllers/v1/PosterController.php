@@ -64,21 +64,28 @@ class PosterController extends Controller {
     /*******************   END : Poster List    ********************/
             
     /*******************   START : Category List    ********************/
-    public function getCategoryList() {
+    public function getCategoryList(Request $request) {
         try {
-            $category = Category::where('status', 'active');
-            
-            $total_category = $category->count();
-            if (isset($request->offset) && isset($request->limit)) {
-                $category = $category->skip($request->offset)->take($request->limit)->get();
-            } else {
-                $category = $category->get();
-            }
+                $category = Category::select('id','name','image')->where('status', 'active');
+                
+                $total_category = $category->count();
 
-            return response()->json(['message' => 'Category List', 'total_category' => $total_category, 'data' => $category], $this->successStatus);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], $this->failStatus);
-        }
+                if (isset($request->country_code) && isset($request->start_date) && isset($request->end_date)) 
+                {
+                    $category = $category->where('county_code', "IN") // use request country
+                         ->whereBetween('date', [$request->start_date, $request->end_date]);
+                }
+
+                if (isset($request->offset) && isset($request->limit)) {
+                    $category = $category->skip($request->offset)->take($request->limit)->get();
+                } else {
+                    $category = $category->get();
+                }
+
+                return response()->json(['message' => 'Category List', 'total_category' => $total_category, 'data' => $category], $this->successStatus);
+            } catch (\Exception $e) {
+                return response()->json(['message' => $e->getMessage()], $this->failStatus);
+            }
     }
     /*******************   END : Category List    ********************/
         

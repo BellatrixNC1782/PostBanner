@@ -42,6 +42,8 @@ Route::post('getposterlist', 'v1\PosterController@getPosterList');
 //Send push notification
 Route::post('sendpushnotification', 'v1\LoginController@sendPushNotification');
 
+Route::get('holidays/{year}', 'v1\LoginController@getHolidays');
+
 Route::group(['middleware' => ['jwt.verify']], function() {
     
     //Profile

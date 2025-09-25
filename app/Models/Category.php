@@ -13,5 +13,12 @@ class Category extends Model implements Auditable
     use HasFactory, SoftDeletes;
     use \OwenIt\Auditing\Auditable;
     protected $table = 'categories';
+
+    protected $fillable = [
+        'name',
+        'date',
+        'county_code',
+        'image'
+    ];
     
 }

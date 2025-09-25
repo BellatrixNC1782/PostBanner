@@ -538,6 +538,9 @@ use OpenApi\Annotations as OA;
  *            required={"offset","limit"},
  *            @OA\Property(property="offset", type="number", format="0", example="0"),
  *            @OA\Property(property="limit", type="number", format="1", example="10"),
+ *            @OA\Property(property="country_code", type="string", format="string", example="IN/CA"),
+ *            @OA\Property(property="start_date", type="string", example="2025-11-05"),
+ *            @OA\Property(property="end_date", type="string", example="2025-11-08"),
  *         ),
  *      ),
  *      @OA\Response(

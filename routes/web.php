@@ -8,3 +8,4 @@ Route::get('/', function () {
 
 Route::get('termsofusemobile', 'HomeController@termsofuseMobile')->name('termsofusemobile');
 Route::get('privacypolicymobile', 'HomeController@privacyPolicyMobile')->name('privacypolicymobile');
+

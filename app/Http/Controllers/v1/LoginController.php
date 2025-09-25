@@ -18,6 +18,8 @@ use JWTAuth;
 use Session;
 use Image;
 use App\Notifications\WelcomeUserMail;
+use Illuminate\Support\Facades\Http;
+use App\Models\Category;
 
 class LoginController extends Controller {
 
@@ -331,4 +333,85 @@ class LoginController extends Controller {
         
         return response()->json(['message' => 'Notification send successfully'],$this->successStatus);   
     }
+
+    
+    //Google
+    public function getHolidays($year)
+    {
+        // Validate year
+        if (!preg_match('/^\d{4}$/', $year)) {
+            return response()->json(['error' => 'Invalid year format'], 400);
+        }
+
+        $apiKey = config('services.google_calendar.api_key');
+        
+        // Add both calendar IDs
+        $calendarIds = [
+            config('services.google_calendar.holiday_calendar_id_india'),   // India Official
+            config('services.google_calendar.holiday_calendar_id_india1'), // Another calendar
+            config('services.google_calendar.holiday_calendar_id_india2') // Another calendar
+        ];
+
+        $timeMin = $year . '-01-01T00:00:00Z';
+        $timeMax = $year . '-12-31T23:59:59Z';
+
+        $allHolidays = collect();
+
+        foreach ($calendarIds as $calendarId) {
+            $encodedCalendarId = urlencode($calendarId);
+            $url = "https://www.googleapis.com/calendar/v3/calendars/{$encodedCalendarId}/events";
+
+            $response = Http::get($url, [
+                'key' => $apiKey,
+                'timeMin' => $timeMin,
+                'timeMax' => $timeMax,
+                'singleEvents' => 'true',
+                'orderBy' => 'startTime',
+            ]);
+
+            if ($response->failed()) {
+                return response()->json([
+                    'error' => 'Failed to fetch holidays',
+                    'details' => $response->json()
+                ], $response->status());
+            }
+
+            $data = $response->json();
+
+            $holidays = collect($data['items'] ?? [])->map(function ($event) {
+                return [
+                    'name' => $event['summary'] ?? null,
+                    'date' => $event['start']['date'] ?? ($event['start']['dateTime'] ?? null),
+                ];
+            });
+
+            $allHolidays = $allHolidays->merge($holidays);
+        }
+
+        // Optional: remove duplicates based on date + name
+        $allHolidays = $allHolidays->unique(function ($item) {
+            return $item['date'] . '|' . $item['name'];
+        })->values();
+
+        foreach ($allHolidays as $holiday) {
+            $cat = Category::where('name',$holiday['name'])->first();
+
+            if(empty($cat))
+            {
+                Category::create([
+                    //'year' => $data['year'],
+                    'name' => $holiday['name'],
+                    'date' => $holiday['date'],
+                    'county_code' => "IN",
+                    'image' => asset('public/uploads/fest.svg'),
+                ]);                
+            }
+        }
+
+        return response()->json([
+            'year' => $year,
+            'holidays' => $allHolidays,
+        ]);
+    }
+       
 }
