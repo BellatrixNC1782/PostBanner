@@ -66,7 +66,7 @@ class PosterController extends Controller {
     /*******************   START : Category List    ********************/
     public function getCategoryList(Request $request) {
         try {
-                $category = Category::select('id','name','image')->where('status', 'active');
+                $category = Category::select('id','name','image','date')->where('status', 'active');
                 
                 $total_category = $category->count();
 
