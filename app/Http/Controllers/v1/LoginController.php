@@ -20,6 +20,7 @@ use Image;
 use App\Notifications\WelcomeUserMail;
 use Illuminate\Support\Facades\Http;
 use App\Models\Category;
+use GuzzleHttp\Client;
 
 class LoginController extends Controller {
 
@@ -336,7 +337,7 @@ class LoginController extends Controller {
 
     
     //Google
-    public function getHolidays($year)
+    public function getHolidays11($year)
     {
         // Validate year
         if (!preg_match('/^\d{4}$/', $year)) {
@@ -347,9 +348,9 @@ class LoginController extends Controller {
         
         // Add both calendar IDs
         $calendarIds = [
-            config('services.google_calendar.holiday_calendar_id_india'),   // India Official
-            config('services.google_calendar.holiday_calendar_id_india1'), // Another calendar
-            config('services.google_calendar.holiday_calendar_id_india2') // Another calendar
+            config('services.google_calendar.holiday_calendar_id_india'),   // India Official 'en.indian.official#holiday@group.v.calendar.google.com',
+            config('services.google_calendar.holiday_calendar_id_india1'), // Another calendar 'en.islamic#holiday@group.v.calendar.google.com',
+            config('services.google_calendar.holiday_calendar_id_india2') // Another calendar 'en.christian#holiday@group.v.calendar.google.com',
         ];
 
         $timeMin = $year . '-01-01T00:00:00Z';
@@ -411,6 +412,34 @@ class LoginController extends Controller {
         return response()->json([
             'year' => $year,
             'holidays' => $allHolidays,
+        ]);
+    }
+
+    public function getHolidays($year)
+    {
+        $client = new Client();
+        $response = $client->get('https://calendarific.com/api/v2/holidays', [
+            'query' => [
+                'api_key' => '6YihkOcVFE5W6qkRTPcXHuSlurtGR29P',
+                'country' => 'IN',
+                'year' => '2025',
+            ]
+        ]);
+
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        foreach ($data['response']['holidays'] as $holiday) {
+                Category::create([
+                    //'year' => $data['year'],
+                    'name' => $holiday['name'],
+                    'date' => $holiday['date']['iso'],
+                    'county_code' => "IN",
+                    'image' => asset('public/uploads/fest.svg'),
+                ]);     
+        }
+
+        return response()->json([
+            'year' => "Done"
         ]);
     }
        
