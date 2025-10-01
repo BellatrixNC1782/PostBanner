@@ -14,6 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('auto:actionreminder')->everyMinute();
         $schedule->command('auto:sharereminder')->everyMinute();
+        $schedule->command('save:holidays')
+         ->monthlyOn(1, '1:00');
     })
     ->withMiddleware(function (Middleware $middleware): void {
         
