@@ -45,9 +45,9 @@ class PosterController extends Controller {
 
             $total_poster = $poster->count();
             if (isset($request->offset) && isset($request->limit)) {
-                $poster = $poster->skip($request->offset)->take($request->limit)->get();
+                $poster = $poster->skip($request->offset)->take($request->limit)->orderBy('posters.id','desc')->get();
             } else {
-                $poster = $poster->get();
+                $poster = $poster->orderBy('posters.id','desc')->get();
             }
 
             if(!$poster->isEmpty()) {
