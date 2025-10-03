@@ -55,10 +55,10 @@ class verifyUserMail extends Notification
         }
         
         return (new MailMessage)
-                        ->subject('Email Verification for Poster Maker')
+                        ->subject('Email Verification for My Daily Post')
                         ->greeting('Dear ' . $user_name . ',')
                         ->line('')
-                        ->line(new HtmlString("Welcome to Poster Maker. To protect your privacy, please use the verification code below to activate your account:"))
+                        ->line(new HtmlString("Welcome to My Daily Post. To protect your privacy, please use the verification code below to activate your account:"))
                         ->line('')
                         ->line(new HtmlString('Verification Code: <b>' . $notifiable->email_otp . '</b>'))
                         ->line(new HtmlString('Note: <b>This code expires in '. $setting_val .' minutes</b>'))
@@ -66,7 +66,7 @@ class verifyUserMail extends Notification
                         ->line("If you received this email by mistake or did not authorize this request, please contact our support team at " . $setting_email_val . ".")
                         ->line('')
                         ->line('Thank you!')
-                        ->salutation(new HtmlString("Best regards,<br>Team Poster Maker"));
+                        ->salutation(new HtmlString("Best regards,<br>Team My Daily Post"));
     }
 
     /**
