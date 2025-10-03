@@ -270,6 +270,7 @@ class LoginController extends Controller {
     /********************   START : Add device token    *********************/
     public function addDeviceToken(Request $request) {
        
+        $userId = null;
         if ($request->user_id != "") {
             $userId = $request->user_id;
 
@@ -290,7 +291,7 @@ class LoginController extends Controller {
         if(empty($device_token)) {
             $device_token = new UserDeviceToken();                
         }
-        //$device_token->user_id = $user_detail->id;
+        $device_token->user_id = $userId;
         $device_token->uu_id = $request->uu_id;
         $device_token->device_type = $request->device_type;
         $device_token->device_token = $request->device_token;
