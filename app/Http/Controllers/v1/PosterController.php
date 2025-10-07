@@ -10,6 +10,7 @@ use App\Models\Common;
 use App\Models\UserDeviceToken;
 use App\Models\Poster;
 use App\Models\Category;
+use App\Models\Images;
 use Auth;
 use DB;
 use Hash;
@@ -92,6 +93,42 @@ class PosterController extends Controller {
             } catch (\Exception $e) {
                 return response()->json(['message' => $e->getMessage()], $this->failStatus);
             }
+    }
+    /*******************   END : Category List    ********************/
+    
+    /*******************   END : Category List    ********************/
+    public function uploadImage(Request $request){
+        $messages = array(
+            'image.required' => 'Please select image.'
+        );
+
+        $rules = array(
+            'image' => 'required'
+        );        
+        
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            foreach ($validator->messages()->getMessages() as $field_name => $messages) {
+                return response()->json(['message' => $messages[0]], $this->failStatus);
+            }
+        }
+        
+        $save_image = new Images();
+        
+        if ($request->hasFile('image')) {
+            $result = Common::uploadSingleImage($request->image, 'images');
+
+            if ($result['status'] == 0) {
+                return response()->json(['message' => 'Result not found'], $this->failStatus);
+            } else {
+                $save_image->image_name = $result['data'];
+                $save_image->image_url = asset('public/uploads/images/'.$result['data']);
+            }
+        }
+        
+        $save_image->save();
+        
+        return response()->json(['message' => 'Poster saved successfully!','image_url' => $save_image->image_url], $this->successStatus);
     }
     /*******************   END : Category List    ********************/
         

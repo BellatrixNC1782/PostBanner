@@ -41,6 +41,7 @@ Route::post('getposterlist', 'v1\PosterController@getPosterList');
 
 //Send push notification
 Route::post('sendpushnotification', 'v1\LoginController@sendPushNotification');
+Route::post('uploadimage', 'v1\PosterController@uploadImage');
 
 Route::get('holidays/{year}', 'v1\LoginController@getHolidays');
 

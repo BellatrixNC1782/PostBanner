@@ -662,6 +662,30 @@ use OpenApi\Annotations as OA;
  *         )
  *     )
  * )
+ * @OA\PathItem(
+ *     path="/uploadimage",
+ *     @OA\Post(
+ *         summary="Upload Image",
+ *         description="Upload Image",
+ *         operationId="uploadimage",
+ *         tags={"UploadImage"},
+ *         @OA\RequestBody(
+ *             required=true,
+ *             description="Pass image file",
+ *             @OA\JsonContent(
+ *                  required={"image"},
+ *                  @OA\Property(property="image", type="file", format="file"),
+ *             )
+ *         ),
+ *         @OA\Response(
+ *             response=422,
+ *             description="Wrong credentials response",
+ *             @OA\JsonContent(
+ *                 @OA\Property(property="message", type="string", example="Sorry, wrong email address. Please try again")
+ *             )
+ *         )
+ *     )
+ * )
  */
 class Controller extends BaseController {
 
