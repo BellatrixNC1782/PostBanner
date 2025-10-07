@@ -674,7 +674,7 @@ use OpenApi\Annotations as OA;
  *             description="Pass image file",
  *             @OA\JsonContent(
  *                  required={"image"},
- *                  @OA\Property(property="image", type="file", format="file"),
+ *                  @OA\Property(property="image", type="file", format="file", example="file"),
  *             )
  *         ),
  *         @OA\Response(
