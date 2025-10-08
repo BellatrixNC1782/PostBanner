@@ -302,6 +302,42 @@ class LoginController extends Controller {
         $device_token->uu_id = $request->uu_id;
         $device_token->save();
         
+        if(empty($userId)){
+            if($device_token->welcome_notify != 'Yes'){
+                $type = 1;
+                $notificationContent = [];
+                $notificationContent['message'] = "🎉 Welcome to PosterMaster! Start designing stunning posters now.";
+                $notificationContent['redirection_id'] = Null;
+                $notification_token = array($device_token->device_token);
+                $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $device_token->device_type, $type);
+                UserDeviceToken::where('id',$device_token->id)->update(array('welcome_notify' => 'Yes'));
+            }
+        }else{
+            $user_detail = User::find($userId);
+            if($user_detail->welcome_notify != 'Yes'){
+                $type = 2;
+                $notificationContent = [];
+                $notificationContent['message'] = "🎉 Welcome to PosterMaster! Start designing stunning posters now.";
+                $notificationContent['redirection_id'] = Null;
+                $notification_token = array($user_detail->device_token);
+                
+                if ($user_detail->push_notify == 'Yes' && $user_detail->device_token != Null) {
+                    $sendNotification = Common::sendPushNotification($notification_token, $notificationContent, $user_detail->device_type, $type);
+                }
+
+                $save_notification = array(
+                    'from_id' => $user_detail->id,
+                    'to_id' => $user_detail->id,
+                    'redirection_id' => Null,
+                    'notification_text' => $notificationContent['message']
+                );
+
+                $notificationdata = Common::saveNotification($save_notification);
+                
+                User::where('id',$user_detail->id)->update(array('welcome_notify' => 'Yes'));
+            }
+        }
+        
         return response()->json(['message' => 'Token saved successfully'],$this->successStatus);       
     }
     /********************   END : Add device token    *********************/
