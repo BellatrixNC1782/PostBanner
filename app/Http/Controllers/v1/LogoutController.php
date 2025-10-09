@@ -22,7 +22,7 @@ class LogoutController extends Controller
     /********************   START : logout   *********************/     
     public function logout(Request $request, $uu_id) {
         if (JWTAuth::getToken() ) {
-            $user_token_delete = UserDeviceToken::where('user_id', Auth::User()->id)->where('uu_id', $uu_id)->delete();
+//            $user_token_delete = UserDeviceToken::where('user_id', Auth::User()->id)->where('uu_id', $uu_id)->delete();
             JWTAuth::invalidate(JWTAuth::getToken());
             return response()->json(['message'=>'Logout successfully.'], $this->successStatus);
         }else{
