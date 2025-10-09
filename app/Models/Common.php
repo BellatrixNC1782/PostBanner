@@ -765,9 +765,9 @@ class Common extends Model
         $datas['message'] = $data['message'];
 //        $datas['logoimage'] = $data['logoimage'];
         if ($devicetype == "IOS") {
-            $datas['title'] = 'PostBanner';
+            $datas['title'] = 'My Daily Post';
         } else {
-            $datas['title'] = 'PostBanner';
+            $datas['title'] = 'My Daily Post';
         }
         $datas['body'] = $data['message'];
 
@@ -779,7 +779,7 @@ class Common extends Model
             "message" => [
                 "token" => $fcm[0],
                 "notification" => [
-                    "title" => 'PostBanner',
+                    "title" => 'My Daily Post',
                     "body" => $data['message'],
                 ],
                 'data' => $datas,
