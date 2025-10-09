@@ -286,6 +286,14 @@ class LoginController extends Controller {
                 $user_detail->save();
             }
         }
+        
+        $check_user_uuid = User::where('uu_id', $request->uu_id)->first();
+        $welcome_notify = 'No';
+        if(!empty($check_user_uuid)){
+            if($check_user_uuid->welcome_notify == 'Yes'){
+                $welcome_notify = 'Yes';
+            }
+        }
             
         $device_token = UserDeviceToken::where('uu_id', $request->uu_id)->first();            
         if(empty($device_token)) {
@@ -300,6 +308,7 @@ class LoginController extends Controller {
         $device_token->app_version = $request->app_version;
         $device_token->api_version = $request->api_version;
         $device_token->uu_id = $request->uu_id;
+        $device_token->welcome_notify = $welcome_notify;
         $device_token->save();
         
         if(empty($userId)){
