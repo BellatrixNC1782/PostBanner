@@ -102,9 +102,9 @@ class SavedPosterController extends Controller {
             
             $total_poster = $saved_poster->count();
             if (isset($request->offset) && isset($request->limit)) {
-                $saved_poster = $saved_poster->skip($request->offset)->take($request->limit)->get();
+                $saved_poster = $saved_poster->skip($request->offset)->take($request->limit)->orderBy('saved_posters.id','desc')->get();
             } else {
-                $saved_poster = $saved_poster->get();
+                $saved_poster = $saved_poster->orderBy('saved_posters.id','desc')->get();
             }
 
             if(!$saved_poster->isEmpty()) {
