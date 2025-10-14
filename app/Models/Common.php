@@ -754,7 +754,7 @@ class Common extends Model
                 $datas['redirect_key'] = $data['redirect_key'];
             }            
         }else{            
-            $datas['redirect_key'] = "my_save_list";
+            $datas['redirect_key'] = "notification_list";
         }
 
 
