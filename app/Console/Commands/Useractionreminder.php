@@ -64,6 +64,7 @@ class Useractionreminder extends Command
                 $usersWithoutPosters = User::select('users.*')
                         ->leftJoin('saved_posters', 'users.id', '=', 'saved_posters.user_id')
                         ->whereNull('saved_posters.user_id')
+                        ->whereNull('saved_posters.deleted_at')
                         ->where(function ($query){
                             $query->where('users.7_day_notify', 'No')
                                     ->orWhere('users.15_day_notify', 'No')
